@@ -1,28 +1,47 @@
 const { ApolloServer, gql } = require("apollo-server");
 
+const profiles = [
+    {
+        id: 1,
+        name: "common",
+    },
+    {
+        id: 2,
+        name: "admin",
+    },
+];
+
 const users = [
     {
         id: 1,
         name: "João Silva",
         email: "joão@email.com",
         age: 29,
+        profile_id: 1,
     },
     {
         id: 2,
         name: "Rafael Junior",
         email: "rafael@email.com",
         age: 31,
+        profile_id: 2,
     },
     {
         id: 3,
         name: "Daniela Smith",
         email: "daniela@email.com",
         age: 24,
+        profile_id: 1,
     },
 ];
 
 const typeDefs = gql`
     scalar Hour
+
+    type Profile {
+        id: Int
+        name: String
+    }
 
     type User {
         id: ID!
@@ -31,6 +50,7 @@ const typeDefs = gql`
         age: Int
         salary: Float
         vip: Boolean
+        profile: Profile
     }
 
     type Product {
@@ -48,12 +68,21 @@ const typeDefs = gql`
         exampleProduct: Product
         lotteryNumbers: [Int!]!
         users: [User]
+        user(id: ID): User
+        profiles: [Profile]
+        profile(id: ID): Profile
     }
 `;
 
 const resolvers = {
     User: {
         salary: (user) => user.salary_real,
+        profile: (user) => {
+            const selected = profiles.filter(
+                (profile) => profile.id == user.profile_id
+            );
+            return selected ? selected[0] : null;
+        },
     },
     Product: {
         priceWithDiscount: (product) => {
@@ -104,6 +133,15 @@ const resolvers = {
             //     .sort(crescent);
         },
         users: () => users,
+        user: (_, { id }) => {
+            const selected = users.filter((user) => user.id == id);
+            return selected ? selected[0] : null;
+        },
+        profiles: () => profiles,
+        profile: (_, { id }) => {
+            const selected = profiles.filter((profile) => profile.id == id);
+            return selected ? selected[0] : null;
+        },
     },
 };
 
