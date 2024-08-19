@@ -1,4 +1,5 @@
 const { ApolloServer, gql } = require("apollo-server");
+const { importSchema } = require("graphql-import");
 
 const profiles = [
     {
@@ -34,45 +35,6 @@ const users = [
         profile_id: 1,
     },
 ];
-
-const typeDefs = gql`
-    scalar Hour
-
-    type Profile {
-        id: Int
-        name: String
-    }
-
-    type User {
-        id: ID!
-        name: String
-        email: String
-        age: Int
-        salary: Float
-        vip: Boolean
-        profile: Profile
-    }
-
-    type Product {
-        name: String!
-        price: Float!
-        discount: Float
-        priceWithDiscount: Float
-    }
-
-    # API entry points
-    type Query {
-        hello: String!
-        currentTime: Hour!
-        loggedUser: User
-        exampleProduct: Product
-        lotteryNumbers: [Int!]!
-        users: [User]
-        user(id: ID): User
-        profiles: [Profile]
-        profile(id: ID): Profile
-    }
-`;
 
 const resolvers = {
     User: {
@@ -145,7 +107,10 @@ const resolvers = {
     },
 };
 
-const server = new ApolloServer({ typeDefs, resolvers });
+const server = new ApolloServer({
+    typeDefs: importSchema("./schema/index.graphql"),
+    resolvers,
+});
 
 server.listen().then(({ url }) => {
     console.log(`Server ready at ${url}`);

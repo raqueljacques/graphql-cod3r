@@ -1,3 +1,21 @@
+## npm install
+
+Importar arquivos do graphql
+
+```
+npm i -s graphql-import
+```
+
+## Rodar aplicação
+
+```
+nvm use
+```
+
+```
+npm start
+```
+
 ## Fragment
 
 Reuse fragments of data that are heavily used to facilitate queries.
