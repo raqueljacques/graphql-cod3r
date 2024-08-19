@@ -1,10 +1,11 @@
 const { ApolloServer, gql } = require("apollo-server");
 
 const typeDefs = gql`
+    scalar Hour
     # API entry points
     type Query {
         hello: String!
-        currentTime: String!
+        currentTime: Hour!
     }
 `;
 
