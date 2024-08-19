@@ -39,3 +39,36 @@ fragment completedUser on User
     id name email age salary vip profile { id name}
 }
 ```
+
+## Queries to test in playground
+
+```javascript
+{
+  exampleProduct
+  {
+    name
+  }
+  lotteryNumbers
+  user(id: 3)
+  {
+    email
+  }
+  users
+  {
+    id email profile{ name }
+  }
+  profiles
+  {
+    id
+    name
+  }
+  profile(id: 1)
+  {
+    name
+  }
+  user(id: 3)
+  {
+    ...completedUser
+  }
+}
+```
