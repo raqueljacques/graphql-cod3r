@@ -2,6 +2,8 @@
 
 Reuse fragments of data that are heavily used to facilitate queries.
 
+Example to use in Apollo playground.
+
 ```javascript
 query {
     user(id: 3)
