@@ -11,4 +11,12 @@ type User {
     salary: Float
     vip: Boolean
     profile: Profile
+    status: UserStatus
+}
+
+#Enums represent a fixed set of values. They make code more explicit, more readable, and less vulnerable to programming errors.
+enum UserStatus {
+    ACTIVE
+    INACTIVE
+    BLOCKED
 }
