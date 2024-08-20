@@ -1,0 +1,10 @@
+type Mutation {
+    # optional comma
+    newUser(data: UserInput!): User!
+    deleteUser(filter: UserFilter!): User
+    changeUser(filter: UserFilter!, data: UserInput!): User
+    changeUserStatus(id: ID!, status: UserStatus): User
+    newProfile(data: ProfileInput!): Profile!
+    deleteProfile(filter: ProfileFilter!): Profile
+    changeProfile(data: ProfileInput!, filter: ProfileFilter!): Profile
+}
